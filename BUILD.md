@@ -59,6 +59,10 @@
 # Ubuntu 24.04+
 sudo apt-get install libgtk-3-dev libwebkit2gtk-4.1-dev
 
+# 重要：由于项目使用 Wails v2.10.1，需要创建兼容性符号链接
+sudo ln -sf /usr/lib/x86_64-linux-gnu/pkgconfig/webkit2gtk-4.1.pc \
+            /usr/lib/x86_64-linux-gnu/pkgconfig/webkit2gtk-4.0.pc
+
 # Ubuntu 22.04 及更早版本
 # sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev
 ```

@@ -148,6 +148,21 @@ build_linux() {
         return 1
     fi
 
+    # 如果只有 webkit2gtk-4.1，为 Wails v2.10.1 创建兼容性符号链接
+    if pkg-config --exists webkit2gtk-4.1 2>/dev/null && ! pkg-config --exists webkit2gtk-4.0 2>/dev/null; then
+        echo "检测到 webkit2gtk-4.1，创建兼容性符号链接..."
+        PKGCONFIG_DIR="/usr/lib/x86_64-linux-gnu/pkgconfig"
+        if [ -f "$PKGCONFIG_DIR/webkit2gtk-4.1.pc" ] && [ ! -f "$PKGCONFIG_DIR/webkit2gtk-4.0.pc" ]; then
+            sudo ln -sf "$PKGCONFIG_DIR/webkit2gtk-4.1.pc" "$PKGCONFIG_DIR/webkit2gtk-4.0.pc" 2>/dev/null || {
+                echo -e "${YELLOW}⚠ 警告: 无法创建符号链接（可能需要 sudo 权限）${NC}"
+                echo "  请手动运行: sudo ln -sf $PKGCONFIG_DIR/webkit2gtk-4.1.pc $PKGCONFIG_DIR/webkit2gtk-4.0.pc"
+                echo "  跳过 Linux 构建"
+                return 1
+            }
+            echo -e "${GREEN}✓ 兼容性符号链接已创建${NC}"
+        fi
+    fi
+
     wails build -platform linux/amd64 -clean
 
     if [ -f "build/bin/kafka-king" ]; then

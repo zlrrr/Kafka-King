@@ -105,6 +105,15 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev
 
+      - name: Create webkit2gtk-4.0 compatibility symlink
+        run: |
+          # 为 Wails v2.10.1 创建 webkit2gtk-4.0 到 4.1 的兼容性映射
+          sudo mkdir -p /usr/lib/x86_64-linux-gnu/pkgconfig
+          if [ -f /usr/lib/x86_64-linux-gnu/pkgconfig/webkit2gtk-4.1.pc ]; then
+            sudo ln -sf /usr/lib/x86_64-linux-gnu/pkgconfig/webkit2gtk-4.1.pc \
+                        /usr/lib/x86_64-linux-gnu/pkgconfig/webkit2gtk-4.0.pc
+          fi
+
       - name: Install Wails
         run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
 
