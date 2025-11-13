@@ -71,7 +71,9 @@ export default {
         kerberos_krb5_conf: "Путь к файлу krb5.conf Kerberos",
         Kerberos_user: "Имя пользователя Kerberos",
         Kerberos_realm: "Домен Kerberos",
-        kerberos_service_name: "Имя сервиса Kerberos"
+        kerberos_service_name: "Имя сервиса Kerberos",
+        disable_idempotence: 'Отключить идемпотентность производителя',
+        disable_idempotence_tip: 'Решает проблемы совместимости между новыми клиентами и старыми серверами. Включите эту опцию, если при подключении клиентов Kafka 3.0+ к более старым версиям сервера возникает ошибка "Cluster authorization failed".',
     },
     node: {
         title: "Узел",

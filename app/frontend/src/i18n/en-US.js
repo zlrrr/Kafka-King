@@ -78,6 +78,8 @@ export default {
         ssh_user: 'SSH Username',
         ssh_password: 'SSH Password',
         ssh_key_file: 'SSH Private Key File',
+        disable_idempotence: 'Disable Producer Idempotence',
+        disable_idempotence_tip: 'Fixes compatibility issues between newer clients and older servers. Enable this if you encounter "Cluster authorization failed" errors when connecting Kafka 3.0+ clients to older server versions.',
     },
     node: {
         title: "Node",

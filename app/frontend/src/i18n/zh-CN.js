@@ -78,6 +78,8 @@ export default {
         ssh_user: 'SSH 用户名',
         ssh_password: 'SSH 密码',
         ssh_key_file: 'SSH 私钥文件',
+        disable_idempotence: '禁用生产者幂等性',
+        disable_idempotence_tip: '用于解决高版本客户端连接低版本服务端的兼容性问题。当Kafka 3.0+客户端连接低版本服务端时，如遇到"Cluster authorization failed"错误，请开启此选项。',
     },
     node: {
         title: '节点',

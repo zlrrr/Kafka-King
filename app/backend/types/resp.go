@@ -61,6 +61,7 @@ type Connect struct {
 	SshUser             string `json:"ssh_user"`     // SSH 用户名
 	SshPassword         string `json:"ssh_password"` // SSH 密码
 	SshKeyFile          string `json:"ssh_key_file"` // SSH 私钥文件
+	DisableIdempotence  string `json:"disable_idempotence"` // 是否禁用幂等性（解决版本兼容问题）
 }
 type H map[string]any
 

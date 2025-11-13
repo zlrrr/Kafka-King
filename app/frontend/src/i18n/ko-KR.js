@@ -71,7 +71,9 @@ export default {
         kerberos_krb5_conf: "Kerberos krb5.conf 경로",
         Kerberos_user: "Kerberos 사용자",
         Kerberos_realm: "Kerberos 도메인",
-        kerberos_service_name: "Kerberos 서비스 이름"
+        kerberos_service_name: "Kerberos 서비스 이름",
+        disable_idempotence: '프로듀서 멱등성 비활성화',
+        disable_idempotence_tip: '새 클라이언트와 이전 서버 간의 호환성 문제를 해결합니다. Kafka 3.0+ 클라이언트를 이전 서버 버전에 연결할 때 "Cluster authorization failed" 오류가 발생하면 이 옵션을 활성화하세요.',
     },
     node: {
         title: "노드",

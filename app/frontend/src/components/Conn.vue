@@ -185,6 +185,14 @@
             </n-form-item>
           </div>
 
+          <!-- 幂等性配置 - 兼容性选项 -->
+          <n-form-item :label="t('conn.disable_idempotence')" path="disable_idempotence">
+            <n-flex vertical>
+              <n-switch :round="false" checked-value="enable" unchecked-value="disable" v-model:value="currentNode.disable_idempotence"/>
+              <n-text depth="3" style="font-size: 12px;">{{ t('conn.disable_idempotence_tip') }}</n-text>
+            </n-flex>
+          </n-form-item>
+
           <n-form-item label="kerberos" path="sasl">
             <n-switch :round="false" checked-value="enable" unchecked-value="disable" v-model:value="currentNode.use_kerberos"/>
           </n-form-item>
@@ -286,6 +294,7 @@ const currentNode = ref({
   ssh_user: '',       // SSH 用户名
   ssh_password: '',   // SSH 密码
   ssh_key_file: '',   // SSH 私钥文件
+  disable_idempotence: 'disable', // 禁用幂等性（兼容低版本服务端）
 })
 const isEditing = ref(false)
 const spin_loading = ref(false)
@@ -357,6 +366,7 @@ const addNewNode = async () => {
     ssh_user: '',
     ssh_password: '',
     ssh_key_file: '',
+    disable_idempotence: 'disable',
   };
   isEditing.value = false
   showEditDrawer.value = true

@@ -340,6 +340,12 @@ func (k *Service) SetConnect(connectName string, conn map[string]any, isTest boo
 	}
 	bootstrapServers := strings.Split(bootstrapServersStr, ",")
 
+	// 幂等性配置（用于解决高版本客户端与低版本服务端的兼容性问题）
+	// 当低版本Kafka服务端没有授予幂等写入权限时，需要禁用客户端的幂等性
+	if connCopy["disable_idempotence"] == "enable" {
+		config = append(config, kgo.DisableIdempotentWrites())
+	}
+
 	config = append(
 		config,
 		kgo.SeedBrokers(bootstrapServers...),
