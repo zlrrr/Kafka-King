@@ -129,11 +129,21 @@ build_linux() {
     echo "构建 Linux 版本 (amd64)"
     echo "======================================"
 
-    # 检查 GTK 依赖
-    if ! pkg-config --exists gtk+-3.0 webkit2gtk-4.0 2>/dev/null; then
-        echo -e "${YELLOW}⚠ 警告: 未找到 GTK3 或 WebKit2GTK 依赖${NC}"
-        echo "  Ubuntu/Debian: sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev"
-        echo "  Fedora/RHEL: sudo dnf install gtk3-devel webkit2gtk3-devel"
+    # 检查 GTK 依赖（支持 webkit2gtk-4.0 和 webkit2gtk-4.1）
+    if ! pkg-config --exists gtk+-3.0 2>/dev/null; then
+        echo -e "${YELLOW}⚠ 警告: 未找到 GTK3 依赖${NC}"
+        echo "  Ubuntu/Debian: sudo apt-get install libgtk-3-dev"
+        echo "  Fedora/RHEL: sudo dnf install gtk3-devel"
+        echo "  跳过 Linux 构建"
+        return 1
+    fi
+
+    # 检查 WebKit2GTK (4.1 优先，兼容 4.0)
+    if ! pkg-config --exists webkit2gtk-4.1 2>/dev/null && ! pkg-config --exists webkit2gtk-4.0 2>/dev/null; then
+        echo -e "${YELLOW}⚠ 警告: 未找到 WebKit2GTK 依赖${NC}"
+        echo "  Ubuntu 24.04+: sudo apt-get install libwebkit2gtk-4.1-dev"
+        echo "  Ubuntu 22.04: sudo apt-get install libwebkit2gtk-4.0-dev"
+        echo "  Fedora/RHEL: sudo dnf install webkit2gtk3-devel"
         echo "  跳过 Linux 构建"
         return 1
     fi
